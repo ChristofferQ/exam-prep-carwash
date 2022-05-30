@@ -39,9 +39,9 @@ public class FacadeExampleTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
-            em.persist(new RenameMe("Some txt", "More text"));
-            em.persist(new RenameMe("aaa", "bbb"));
+         //   em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
+          //  em.persist(new RenameMe("Some txt", "More text"));
+           // em.persist(new RenameMe("aaa", "bbb"));
 
             em.getTransaction().commit();
         } finally {
@@ -57,7 +57,7 @@ public class FacadeExampleTest {
     // TODO: Delete or change this method 
     @Test
     public void testAFacadeMethod() throws Exception {
-        assertEquals(2, facade.getRenameMeCount(), "Expects two rows in the database");
+      //  assertEquals(2, facade.getRenameMeCount(), "Expects two rows in the database");
     }
     
 

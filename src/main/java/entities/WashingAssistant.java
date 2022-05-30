@@ -10,6 +10,7 @@ import java.util.List;
         private static final long SerialVersionUID = 1L;
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "ID")
         private long id;
         private String name;
         private String primaryLanguage;
@@ -26,7 +27,7 @@ import java.util.List;
             this.pricePrHour = pricePrHour;
         }
 
-        @OneToMany(mappedBy = "washingAssistant")
+        @ManyToMany(mappedBy = "washingAssistants")
         private List<Booking> bookings = new ArrayList<>();
 
         public static long getSerialVersionUID() {
@@ -81,12 +82,7 @@ import java.util.List;
         this.bookings = bookings;
     }
 
-    public void addBooking(Booking booking){
-            this.bookings.add(booking);
-            if (booking.getWashingAssistant() != this){
-                booking.setWashingAssistant(this);
-            }
-    }
+
 
     @Override
         public String toString() {

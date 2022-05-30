@@ -10,6 +10,7 @@ public class Booking implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private long id;
     private int dateAndTime;
     private int Duration;
@@ -25,8 +26,14 @@ public class Booking implements Serializable {
     @ManyToOne
     private Car car;
 
-    @ManyToOne
-    private WashingAssistant washingAssistant;
+    @ManyToMany
+    @JoinTable(
+            name = "BOOKING_WASHINGASSISTANT",
+            joinColumns = @JoinColumn(name = "BOOKING_ID",referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "WASHINGASSISTANT_ID",referencedColumnName = "ID"))
+    private List<WashingAssistant> washingAssistants = new ArrayList<>();
+
+
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -67,15 +74,12 @@ public class Booking implements Serializable {
         }
     }
 
-    public WashingAssistant getWashingAssistant() {
-        return washingAssistant;
+    public List<WashingAssistant> getWashingAssistants() {
+        return washingAssistants;
     }
 
-    public void setWashingAssistant(WashingAssistant washingAssistant) {
-        this.washingAssistant = washingAssistant;
-        if (!washingAssistant.getBookings().contains(this)){
-            washingAssistant.getBookings().add(this);
-        }
+    public void setWashingAssistants(List<WashingAssistant> washingAssistants) {
+        this.washingAssistants = washingAssistants;
     }
 
     @Override
