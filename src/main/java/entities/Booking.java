@@ -1,10 +1,9 @@
 package entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Booking implements Serializable {
@@ -18,10 +17,16 @@ public class Booking implements Serializable {
     public Booking() {
     }
 
-    public Booking(int dateAndTime, int duration) {
+    public Booking(int dateAndTime, int duration, Car car, WashingAssistant washingAssistant) {
         this.dateAndTime = dateAndTime;
         Duration = duration;
     }
+
+    @ManyToOne
+    private Car car;
+
+    @ManyToOne
+    private WashingAssistant washingAssistant;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -49,6 +54,28 @@ public class Booking implements Serializable {
 
     public void setDuration(int duration) {
         Duration = duration;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
+        if (!car.getBookings().contains(this)){
+            car.getBookings().add(this);
+        }
+    }
+
+    public WashingAssistant getWashingAssistant() {
+        return washingAssistant;
+    }
+
+    public void setWashingAssistant(WashingAssistant washingAssistant) {
+        this.washingAssistant = washingAssistant;
+        if (!washingAssistant.getBookings().contains(this)){
+            washingAssistant.getBookings().add(this);
+        }
     }
 
     @Override

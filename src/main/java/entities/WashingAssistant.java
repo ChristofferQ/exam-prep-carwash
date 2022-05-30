@@ -1,12 +1,11 @@
 package entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-    @Entity
+@Entity
     public class WashingAssistant implements Serializable {
         private static final long SerialVersionUID = 1L;
         @Id
@@ -26,6 +25,9 @@ import java.io.Serializable;
             this.yearsOfExp = yearsOfExp;
             this.pricePrHour = pricePrHour;
         }
+
+        @OneToMany(mappedBy = "washingAssistant")
+        private List<Booking> bookings = new ArrayList<>();
 
         public static long getSerialVersionUID() {
             return SerialVersionUID;
@@ -71,7 +73,22 @@ import java.io.Serializable;
             this.pricePrHour = pricePrHour;
         }
 
-        @Override
+        public List<Booking> getBookings() {
+        return bookings;
+    }
+
+        public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
+    public void addBooking(Booking booking){
+            this.bookings.add(booking);
+            if (booking.getWashingAssistant() != this){
+                booking.setWashingAssistant(this);
+            }
+    }
+
+    @Override
         public String toString() {
             return "WashingAssistant{" +
                     "id=" + id +

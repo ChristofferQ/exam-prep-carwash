@@ -1,10 +1,9 @@
 package entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Car implements Serializable {
@@ -26,6 +25,9 @@ public class Car implements Serializable {
         this.make = make;
         this.year = year;
     }
+
+    @OneToMany(mappedBy = "car")
+    private List<Booking> bookings = new ArrayList<>();
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -69,6 +71,21 @@ public class Car implements Serializable {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
+    public void addBooking(Booking booking){
+        this.bookings.add(booking);
+        if (booking.getCar() != this){
+            booking.setCar(this);
+        }
     }
 
     @Override
