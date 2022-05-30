@@ -9,6 +9,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 //Todo Remove or change relevant parts before ACTUAL use
 @Path("xxx")
@@ -23,6 +24,13 @@ public class RenameMeResource {
     @Produces({MediaType.APPLICATION_JSON})
     public String demo() {
         return "{\"msg\":\"Hello World\"}";
+    }
+
+    @Path("washass")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getAllWashingAssistants(){
+        return Response.ok(GSON.toJson(FACADE.getAllWashingAssistants())).build();
     }
 
 }

@@ -6,6 +6,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 
 //import errorhandling.RenameMeNotFoundException;
+import dtos.WashingAssistantDTO;
+import entities.WashingAssistant;
 import utils.EMF_Creator;
 
 /**
@@ -38,10 +40,19 @@ public class FacadeExample {
         return emf.createEntityManager();
     }
 
+    public List<WashingAssistantDTO> getAllWashingAssistants(){
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<WashingAssistant> query = em.createQuery("SELECT w FROM WashingAssistant w", WashingAssistant.class);
+        List<WashingAssistant> ws = query.getResultList();
+        System.out.println(ws);
+        return WashingAssistantDTO.getDtos(ws);
+    }
+
     
     public static void main(String[] args) {
         emf = EMF_Creator.createEntityManagerFactory();
         FacadeExample fe = getFacadeExample(emf);
+        fe.getAllWashingAssistants();
     }
 
 }

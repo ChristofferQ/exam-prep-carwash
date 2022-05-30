@@ -13,14 +13,15 @@ public class Booking implements Serializable {
     @Column(name = "ID")
     private long id;
     private int dateAndTime;
-    private int Duration;
+    //Kan ændres til automatisk at indsætte date&time
+    private int duration;
 
     public Booking() {
     }
 
     public Booking(int dateAndTime, int duration, Car car, WashingAssistant washingAssistant) {
         this.dateAndTime = dateAndTime;
-        Duration = duration;
+        this.duration = duration;
     }
 
     @ManyToOne
@@ -56,11 +57,11 @@ public class Booking implements Serializable {
     }
 
     public int getDuration() {
-        return Duration;
+        return duration;
     }
 
     public void setDuration(int duration) {
-        Duration = duration;
+        duration = duration;
     }
 
     public Car getCar() {
@@ -87,7 +88,7 @@ public class Booking implements Serializable {
         return "Booking{" +
                 "id=" + id +
                 ", dateAndTime=" + dateAndTime +
-                ", Duration=" + Duration +
+                ", duration=" + duration +
                 '}';
     }
 }
