@@ -33,4 +33,11 @@ public class RenameMeResource {
         return Response.ok(GSON.toJson(FACADE.getAllWashingAssistants())).build();
     }
 
+    @Path("bookings")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getAllBookings(){
+        return Response.ok(GSON.toJson(FACADE.getAllBookings())).build();
+    }
+
 }
