@@ -95,5 +95,12 @@ import java.util.Set;
                     ", pricePrHour=" + pricePrHour +
                     '}';
         }
+
+    public void addBooking(Booking booking){
+        this.bookings.add(booking);
+        if (booking.getWashingAssistants() != this){
+            booking.setWashingAssistants((List<WashingAssistant>) this);
+        }
     }
+}
 

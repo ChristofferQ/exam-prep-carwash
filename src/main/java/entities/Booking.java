@@ -19,6 +19,11 @@ public class Booking implements Serializable {
     public Booking() {
     }
 
+    public Booking(int dateAndTime, int duration) {
+        this.dateAndTime = dateAndTime;
+        this.duration = duration;
+    }
+
     public Booking(int dateAndTime, int duration, Car car, WashingAssistant washingAssistant) {
         this.dateAndTime = dateAndTime;
         this.duration = duration;
