@@ -22,6 +22,11 @@ public class BookingDTO {
         this.duration = b.getDuration();
     }
 
+    public BookingDTO(int dateAndTime, int duration) {
+        this.dateAndTime = dateAndTime;
+        this.duration = duration;
+    }
+
     public static List<BookingDTO> getDtos(List<Booking> bs){
         List<BookingDTO> bdtos = new ArrayList<>();
         bs.forEach(b->bdtos.add(new BookingDTO(b)));

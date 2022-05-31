@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 import dtos.BookingDTO;
 import dtos.WashingAssistantDTO;
 import entities.Booking;
+import entities.Car;
 import entities.WashingAssistant;
 import utils.EMF_Creator;
 
@@ -58,12 +59,26 @@ public class FacadeExample {
         return BookingDTO.getDtos(bs);
     }
 
+    public BookingDTO createBooking(BookingDTO b) {
+        Booking bo = new Booking(b.getDateAndTime(),b.getDuration(),new Car(),new WashingAssistant());
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(bo);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return new BookingDTO(bo);
+    }
+
     
     public static void main(String[] args) {
         emf = EMF_Creator.createEntityManagerFactory();
         FacadeExample fe = getFacadeExample(emf);
-        fe.getAllWashingAssistants();
-        fe.getAllBookings();
+       // fe.getAllWashingAssistants();
+       // fe.getAllBookings();
+        fe.createBooking(new BookingDTO(123,22));
     }
 
 }

@@ -2,12 +2,11 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dtos.BookingDTO;
 import utils.EMF_Creator;
 import facades.FacadeExample;
 import javax.persistence.EntityManagerFactory;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -40,4 +39,15 @@ public class RenameMeResource {
         return Response.ok(GSON.toJson(FACADE.getAllBookings())).build();
     }
 
+    //RolesAllowed not added for easier testing
+    @Path("createboat")
+    //@RolesAllowed("admin")
+    @POST
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response createBooking(String Booking) {
+        BookingDTO b = GSON.fromJson(Booking, BookingDTO.class);
+        BookingDTO bo = FACADE.createBooking(b);
+        return Response.ok(bo).build();
+    }
 }

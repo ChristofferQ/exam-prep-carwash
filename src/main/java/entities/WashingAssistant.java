@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
     public class WashingAssistant implements Serializable {
@@ -28,7 +29,7 @@ import java.util.List;
         }
 
         @ManyToMany(mappedBy = "washingAssistants")
-        private List<Booking> bookings = new ArrayList<>();
+        private List<Booking> bookings = new ArrayList<Booking>();
 
         public static long getSerialVersionUID() {
             return SerialVersionUID;

@@ -22,6 +22,8 @@ public class Booking implements Serializable {
     public Booking(int dateAndTime, int duration, Car car, WashingAssistant washingAssistant) {
         this.dateAndTime = dateAndTime;
         this.duration = duration;
+        this.car = car;
+
     }
 
     @ManyToOne
@@ -32,7 +34,7 @@ public class Booking implements Serializable {
             name = "BOOKING_WASHINGASSISTANT",
             joinColumns = @JoinColumn(name = "BOOKING_ID",referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "WASHINGASSISTANT_ID",referencedColumnName = "ID"))
-    private List<WashingAssistant> washingAssistants = new ArrayList<>();
+    private List<WashingAssistant> washingAssistants = new ArrayList<WashingAssistant>();
 
 
 
@@ -79,8 +81,9 @@ public class Booking implements Serializable {
         return washingAssistants;
     }
 
-    public void setWashingAssistants(List<WashingAssistant> washingAssistants) {
-        this.washingAssistants = washingAssistants;
+    public void setWashingAssistants(WashingAssistant wa) {
+        this.washingAssistants.add(wa);
+        wa.getBookings().add(this);
     }
 
     @Override
