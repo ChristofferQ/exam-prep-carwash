@@ -2,12 +2,13 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dtos.BookingDTO;
+import dtos.WashingAssistantDTO;
+import entities.WashingAssistant;
 import utils.EMF_Creator;
 import facades.FacadeExample;
 import javax.persistence.EntityManagerFactory;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -38,6 +39,30 @@ public class RenameMeResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAllBookings(){
         return Response.ok(GSON.toJson(FACADE.getAllBookings())).build();
+    }
+
+    //RolesAllowed not added for easier testing
+    @Path("createbooking")
+    //@RolesAllowed("admin")
+    @POST
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response createBoat(String Booking) {
+        BookingDTO b = GSON.fromJson(Booking, BookingDTO.class);
+        BookingDTO bo = FACADE.createBooking(b);
+        return Response.ok(bo).build();
+    }
+
+    //RolesAllowed not added for easier testing
+    @Path("connectbooking/{id}")
+    //@RolesAllowed("admin")
+    @PUT
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response connectBoatWithHarbour(@PathParam("id") long id, String harbour) {
+        WashingAssistantDTO w = GSON.fromJson(harbour, WashingAssistantDTO.class);
+        BookingDTO bEdited = FACADE.assignWashAss(id, w.getId());
+        return Response.ok(GSON.toJson(bEdited)).build();
     }
 
 }

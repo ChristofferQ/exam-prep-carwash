@@ -58,12 +58,44 @@ public class FacadeExample {
         return BookingDTO.getDtos(bs);
     }
 
+    public BookingDTO createBooking (BookingDTO b) {
+        Booking be = new Booking(b.getDateAndTime(), b.getDuration());
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(be);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return new BookingDTO(be);
+    }
+
+    public BookingDTO assignWashAss(long bookingId, long washAssId) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            Booking b = em.find(Booking.class, bookingId);
+            WashingAssistant w = em.find(WashingAssistant.class, washAssId);
+
+            b.setWashingAssistants((List<WashingAssistant>) w);
+            w.addBooking(b);
+
+            em.getTransaction().begin();
+            em.merge(b);
+            em.getTransaction().commit();
+            return new BookingDTO(b);
+        } finally {
+            em.close();
+        }
+    }
+
     
     public static void main(String[] args) {
         emf = EMF_Creator.createEntityManagerFactory();
         FacadeExample fe = getFacadeExample(emf);
         fe.getAllWashingAssistants();
         fe.getAllBookings();
+
     }
 
 }
