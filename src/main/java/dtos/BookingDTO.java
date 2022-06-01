@@ -1,6 +1,8 @@
 package dtos;
 
 import entities.Booking;
+import entities.Car;
+import entities.WashingAssistant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +24,10 @@ public class BookingDTO {
         this.duration = b.getDuration();
     }
 
-    public BookingDTO(int dateAndTime, int duration) {
+    public BookingDTO(int dateAndTime, int duration,Car car, WashingAssistant washingAssistant) {
         this.dateAndTime = dateAndTime;
         this.duration = duration;
+
     }
 
     public static List<BookingDTO> getDtos(List<Booking> bs){

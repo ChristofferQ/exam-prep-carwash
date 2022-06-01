@@ -35,3 +35,14 @@ PUT http://localhost:8080/devops_starter_war_exploded/api/xxx/connectbooking/2
 {
 "washAssId":1
 }
+
+###
+POST http://localhost:8080/devops_starter_war_exploded/api/xxx/createwashingass
+
+{
+"Name": "Per",
+"Primarylanguage": "Dansk",
+"Yearsofexp": 50,
+"Priceprhour": 200
+}
+

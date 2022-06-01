@@ -28,10 +28,11 @@ public class Booking implements Serializable {
         this.dateAndTime = dateAndTime;
         this.duration = duration;
         this.car = car;
+        this.washingAssistants = null;
 
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Car car;
 
     @ManyToMany
@@ -86,9 +87,8 @@ public class Booking implements Serializable {
         return washingAssistants;
     }
 
-    public void setWashingAssistants(WashingAssistant wa) {
-        this.washingAssistants.add(wa);
-        wa.getBookings().add(this);
+    public void setWashingAssistants(List<WashingAssistant> washingAssistants) {
+        this.washingAssistants = washingAssistants;
     }
 
     @Override

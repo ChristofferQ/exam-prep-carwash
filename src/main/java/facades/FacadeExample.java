@@ -65,17 +65,11 @@ public class FacadeExample {
         try {
             em.getTransaction().begin();
             em.persist(bo);
-    public BookingDTO createBooking (BookingDTO b) {
-        Booking be = new Booking(b.getDateAndTime(), b.getDuration());
-        EntityManager em = getEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.persist(be);
             em.getTransaction().commit();
         } finally {
             em.close();
         }
-        return new BookingDTO(be);
+        return new BookingDTO(bo);
     }
 
     public BookingDTO assignWashAss(long bookingId, long washAssId) {
@@ -84,8 +78,8 @@ public class FacadeExample {
             Booking b = em.find(Booking.class, bookingId);
             WashingAssistant w = em.find(WashingAssistant.class, washAssId);
 
-            b.setWashingAssistants((List<WashingAssistant>) w);
-            w.addBooking(b);
+            //b.setWashingAssistants((List<WashingAssistant>) w);
+          //  w.setBooking(b);
 
             em.getTransaction().begin();
             em.merge(b);
@@ -96,13 +90,31 @@ public class FacadeExample {
         }
     }
 
+    public WashingAssistantDTO createWashingAssistant(WashingAssistantDTO wa) {
+        WashingAssistant w = new WashingAssistant(wa.getName(), wa.getPrimaryLanguage(), wa.getYearsOfExp(),wa.getPricePrHour());
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(w);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        System.out.println("hej" + w);
+        return new WashingAssistantDTO(w);
+    }
+
     
     public static void main(String[] args) {
         emf = EMF_Creator.createEntityManagerFactory();
         FacadeExample fe = getFacadeExample(emf);
-        fe.getAllWashingAssistants();
-        fe.getAllBookings();
+        //fe.getAllWashingAssistants();
+        //fe.getAllBookings();
 
+        BookingDTO bd = new BookingDTO(121,121,new Car(),new WashingAssistant());
+        fe.createBooking(bd);
+
+        //WashingAssistantDTO wad = new WashingAssistantDTO("Ermin","Dansk",12,12);
+        //fe.createWashingAssistant(wad);
     }
-
 }

@@ -29,6 +29,15 @@ public class WashingAssistantDTO {
         this.pricePrHour = w.getPricePrHour();
     }
 
+    public WashingAssistantDTO( String name, String primaryLanguage, int yearsOfExp, int pricePrHour) {
+        this.name = name;
+        this.primaryLanguage = primaryLanguage;
+        this.yearsOfExp = yearsOfExp;
+        this.pricePrHour = pricePrHour;
+    }
+
+
+
     public static List<WashingAssistantDTO> getDtos(List<WashingAssistant> ws){
         List<WashingAssistantDTO> wdtos = new ArrayList<>();
         ws.forEach(w->wdtos.add(new WashingAssistantDTO(w)));
@@ -75,14 +84,5 @@ public class WashingAssistantDTO {
         this.pricePrHour = pricePrHour;
     }
 
-    @Override
-    public String toString() {
-        return "WashingAssistantDTO{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", primaryLanguage='" + primaryLanguage + '\'' +
-                ", yearsOfExp=" + yearsOfExp +
-                ", pricePrHour=" + pricePrHour +
-                '}';
-    }
+
 }

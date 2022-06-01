@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.BookingDTO;
 import dtos.WashingAssistantDTO;
-import entities.WashingAssistant;
 import utils.EMF_Creator;
 import facades.FacadeExample;
 import javax.persistence.EntityManagerFactory;
@@ -65,4 +64,15 @@ public class RenameMeResource {
         return Response.ok(GSON.toJson(bEdited)).build();
     }
 
+    //RolesAllowed not added for easier testing
+    @Path("createwashingass")
+    //@RolesAllowed("admin")
+    @POST
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response createwashingass(String WashingAssistant) {
+        WashingAssistantDTO wa = GSON.fromJson(WashingAssistant, WashingAssistantDTO.class);
+        WashingAssistantDTO wad = FACADE.createWashingAssistant(wa);
+        return Response.ok(wad).build();
+    }
 }
