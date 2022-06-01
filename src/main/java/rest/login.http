@@ -30,10 +30,10 @@ POST http://localhost:8080/devops_starter_war_exploded/api/xxx/createbooking
 }
 
 ###
-PUT http://localhost:8080/devops_starter_war_exploded/api/xxx/connectbooking/2
+PUT http://localhost:8080/devops_starter_war_exploded/api/xxx/assignWashAss/1
 
 {
-"washAssId":1
+"washAssId":2
 }
 
 ###

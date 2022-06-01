@@ -83,6 +83,13 @@ import java.util.Set;
         this.bookings = bookings;
     }
 
+    public void addBooking(Booking booking) {
+            this.bookings.add(booking);
+            if(booking.getWashingAssistants() != this){
+                booking.setWashingAssistant(this);
+            }
+    }
+
     @Override
         public String toString() {
             return "WashingAssistant{" +
@@ -93,5 +100,7 @@ import java.util.Set;
                     ", pricePrHour=" + pricePrHour +
                     '}';
         }
+
+
 }
 

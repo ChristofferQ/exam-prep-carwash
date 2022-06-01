@@ -91,6 +91,12 @@ public class Booking implements Serializable {
         this.washingAssistants = washingAssistants;
     }
 
+    public void setWashingAssistant(WashingAssistant washingAssistant) {
+        if (washingAssistant != null) {
+            this.washingAssistants.add(washingAssistant);
+        }
+    }
+
     @Override
     public String toString() {
         return "Booking{" +
@@ -99,4 +105,6 @@ public class Booking implements Serializable {
                 ", duration=" + duration +
                 '}';
     }
+
+
 }

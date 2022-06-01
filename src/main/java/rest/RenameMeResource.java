@@ -53,7 +53,7 @@ public class RenameMeResource {
     }
 
     //RolesAllowed not added for easier testing
-    @Path("connectbooking/{id}")
+    @Path("assignWashAss/{id}")
     //@RolesAllowed("admin")
     @PUT
     @Produces({MediaType.APPLICATION_JSON})

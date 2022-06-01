@@ -43,6 +43,12 @@ public class FacadeExample {
         return emf.createEntityManager();
     }
 
+    public BookingDTO getBookingById(long bookingId) {
+        EntityManager em = emf.createEntityManager();
+        Booking b = em.find(Booking.class, bookingId);
+        return new BookingDTO(b);
+    }
+
     public List<WashingAssistantDTO> getAllWashingAssistants(){
         EntityManager em = emf.createEntityManager();
         TypedQuery<WashingAssistant> query = em.createQuery("SELECT w FROM WashingAssistant w", WashingAssistant.class);
@@ -78,8 +84,8 @@ public class FacadeExample {
             Booking b = em.find(Booking.class, bookingId);
             WashingAssistant w = em.find(WashingAssistant.class, washAssId);
 
-            //b.setWashingAssistants((List<WashingAssistant>) w);
-          //  w.setBooking(b);
+            b.setWashingAssistant(w);
+            w.addBooking(b);
 
             em.getTransaction().begin();
             em.merge(b);
@@ -111,8 +117,10 @@ public class FacadeExample {
         //fe.getAllWashingAssistants();
         //fe.getAllBookings();
 
-        BookingDTO bd = new BookingDTO(121,121,new Car(),new WashingAssistant());
-        fe.createBooking(bd);
+        //BookingDTO bd = new BookingDTO(121,121,new Car(),new WashingAssistant());
+        //fe.createBooking(bd);
+
+        fe.assignWashAss(1,2);
 
         //WashingAssistantDTO wad = new WashingAssistantDTO("Ermin","Dansk",12,12);
         //fe.createWashingAssistant(wad);
