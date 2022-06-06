@@ -125,4 +125,14 @@ public class FacadeExample {
         //WashingAssistantDTO wad = new WashingAssistantDTO("Ermin","Dansk",12,12);
         //fe.createWashingAssistant(wad);
     }
+
+    public long getCarCount() {
+        EntityManager em = getEntityManager();
+        try{
+            long carCount = (long)em.createQuery("SELECT COUNT(c) FROM Car c").getSingleResult();
+            return carCount;
+        }finally{
+            em.close();
+        }
+    }
 }

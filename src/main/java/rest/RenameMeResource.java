@@ -26,6 +26,16 @@ public class RenameMeResource {
         return "{\"msg\":\"Hello World\"}";
     }
 
+    @Path("count")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getRenameMeCount() {
+
+        long count = FACADE.getCarCount();
+        //System.out.println("--------------->"+count);
+        return "{\"count\":"+count+"}";  //Done manually so no need for a DTO
+    }
+
     @Path("washass")
     @GET
     @Produces({MediaType.APPLICATION_JSON})

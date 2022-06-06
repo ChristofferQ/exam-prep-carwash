@@ -1,5 +1,6 @@
 package facades;
 
+import entities.Car;
 import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
@@ -39,9 +40,9 @@ public class FacadeExampleTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-         //   em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
-          //  em.persist(new RenameMe("Some txt", "More text"));
-           // em.persist(new RenameMe("aaa", "bbb"));
+            em.createNamedQuery("Car.deleteCar").executeUpdate();
+            em.persist(new Car(1,"Some txt", "More text",1));
+            em.persist(new Car(2,"aaa", "bbb",2));
 
             em.getTransaction().commit();
         } finally {
@@ -57,7 +58,7 @@ public class FacadeExampleTest {
     // TODO: Delete or change this method 
     @Test
     public void testAFacadeMethod() throws Exception {
-      //  assertEquals(2, facade.getRenameMeCount(), "Expects two rows in the database");
+        assertEquals(2, facade.getCarCount(), "Expects two rows in the database");
     }
     
 

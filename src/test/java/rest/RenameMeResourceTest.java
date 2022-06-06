@@ -1,5 +1,6 @@
 package rest;
 
+import entities.Car;
 import utils.EMF_Creator;
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.given;
@@ -24,7 +25,7 @@ public class RenameMeResourceTest {
 
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
-   // private static RenameMe r1, r2;
+    private static Car c1, c2;
 
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
@@ -62,13 +63,13 @@ public class RenameMeResourceTest {
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
-        //r1 = new RenameMe("Some txt", "More text");
-       // r2 = new RenameMe("aaa", "bbb");
+        c1 = new Car(1, "More text","Even more text",1);
+        c2 = new Car(2, "text","More text",2);
         try {
             em.getTransaction().begin();
-            //em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
-           // em.persist(r1);
-            //em.persist(r2);
+            em.createNamedQuery("Car.deleteCar").executeUpdate();
+            em.persist(c1);
+            em.persist(c2);
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -91,13 +92,4 @@ public class RenameMeResourceTest {
                 .body("msg", equalTo("Hello World"));
     }
 
-    @Test
-    public void testCount() throws Exception {
-        given()
-                .contentType("application/json")
-                .get("/xxx/count").then()
-                .assertThat()
-                .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("count", equalTo(2));
-    }
 }

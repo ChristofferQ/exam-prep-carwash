@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@NamedQuery(name = "Car.deleteCar", query = "DELETE from Car")
 public class Car implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
