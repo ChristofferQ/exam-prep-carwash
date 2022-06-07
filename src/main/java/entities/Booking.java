@@ -92,8 +92,8 @@ public class Booking implements Serializable {
     }
 
     public void setWashingAssistant(WashingAssistant washingAssistant) {
-        if (washingAssistant != null) {
-            this.washingAssistants.add(washingAssistant);
+        if (!washingAssistant.getBookings().contains(this)) {
+            washingAssistant.getBookings().add(this);
         }
     }
 

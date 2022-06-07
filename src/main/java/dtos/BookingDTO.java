@@ -11,6 +11,7 @@ public class BookingDTO {
     private long id;
     private int dateAndTime;
     private int duration;
+    private long carId;
 
     public BookingDTO(long id, int dateAndTime, int duration) {
         this.id = id;
@@ -60,12 +61,21 @@ public class BookingDTO {
         this.duration = duration;
     }
 
+    public long getCarId() {
+        return carId;
+    }
+
+    public void setCarId(long carId) {
+        this.carId = carId;
+    }
+
     @Override
     public String toString() {
         return "BookingDTO{" +
                 "id=" + id +
                 ", dateAndTime=" + dateAndTime +
                 ", duration=" + duration +
+                ", carId=" + carId +
                 '}';
     }
 }

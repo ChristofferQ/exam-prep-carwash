@@ -84,10 +84,9 @@ import java.util.Set;
     }
 
     public void addBooking(Booking booking) {
-            this.bookings.add(booking);
-            if(booking.getWashingAssistants() != this){
-                booking.setWashingAssistant(this);
-            }
+        if(!booking.getWashingAssistants().contains(this)){
+            booking.getWashingAssistants().add(this);
+        }
     }
 
     @Override

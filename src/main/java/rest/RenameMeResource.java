@@ -85,4 +85,17 @@ public class RenameMeResource {
         WashingAssistantDTO wad = FACADE.createWashingAssistant(wa);
         return Response.ok(wad).build();
     }
+
+    //RolesAllowed not added for easier testing
+    @Path("editbooking/{id}")
+    //@RolesAllowed("admin")
+    @PUT
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response editBooking(@PathParam("id") long id, String booking) {
+        BookingDTO b = GSON.fromJson(booking, BookingDTO.class);
+        b.setId(id);
+        BookingDTO bEdited = FACADE.editBooking(b);
+        return Response.ok(bEdited).build();
+    }
 }

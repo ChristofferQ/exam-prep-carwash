@@ -7,6 +7,7 @@ import javax.persistence.TypedQuery;
 
 //import errorhandling.RenameMeNotFoundException;
 import dtos.BookingDTO;
+import dtos.CarDTO;
 import dtos.WashingAssistantDTO;
 import entities.Booking;
 import entities.Car;
@@ -47,6 +48,16 @@ public class FacadeExample {
         EntityManager em = emf.createEntityManager();
         Booking b = em.find(Booking.class, bookingId);
         return new BookingDTO(b);
+    }
+
+    public long getCarCount() {
+        EntityManager em = getEntityManager();
+        try{
+            long carCount = (long)em.createQuery("SELECT COUNT(c) FROM Car c").getSingleResult();
+            return carCount;
+        }finally{
+            em.close();
+        }
     }
 
     public List<WashingAssistantDTO> getAllWashingAssistants(){
@@ -110,6 +121,26 @@ public class FacadeExample {
         return new WashingAssistantDTO(w);
     }
 
+    public BookingDTO editBooking(BookingDTO bookingDTO) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            Booking b = em.find(Booking.class, bookingDTO.getId());
+            Car c = em.find(Car.class, bookingDTO.getCarId());
+
+
+            b.setDateAndTime(bookingDTO.getDateAndTime());
+            b.setDuration(bookingDTO.getDuration());
+            b.setCar(c);
+
+            em.getTransaction().begin();
+            em.merge(b);
+            em.getTransaction().commit();
+            return new BookingDTO(b);
+        } finally {
+            em.close();
+        }
+    }
+
     
     public static void main(String[] args) {
         emf = EMF_Creator.createEntityManagerFactory();
@@ -120,19 +151,16 @@ public class FacadeExample {
         //BookingDTO bd = new BookingDTO(121,121,new Car(),new WashingAssistant());
         //fe.createBooking(bd);
 
-        fe.assignWashAss(1,2);
+        //fe.assignWashAss(1,2);
 
         //WashingAssistantDTO wad = new WashingAssistantDTO("Ermin","Dansk",12,12);
         //fe.createWashingAssistant(wad);
-    }
 
-    public long getCarCount() {
-        EntityManager em = getEntityManager();
-        try{
-            long carCount = (long)em.createQuery("SELECT COUNT(c) FROM Car c").getSingleResult();
-            return carCount;
-        }finally{
-            em.close();
-        }
+//        BookingDTO bd = fe.getBookingById(2);
+//        bd.setDateAndTime(1234);
+//        bd.setDuration(51231);
+//        bd.setCarId(1);
+//        fe.editBooking(bd);
+//        System.out.println("Testing editBoat" + "\n" + bd);
     }
 }

@@ -46,3 +46,12 @@ POST http://localhost:8080/devops_starter_war_exploded/api/xxx/createwashingass
 "Priceprhour": 200
 }
 
+###
+PUT http://localhost:8080/devops_starter_war_exploded/api/xxx/editbooking/1
+
+{
+"DateAndTime": 41546,
+"Duration": 4555,
+"CarId": 2
+}
+
