@@ -27,8 +27,10 @@ public class SetupTestUsers {
     WashingAssistant washAss2 = new WashingAssistant("Bobbie", "American", 15,230);
 
     Car car1 = new Car(101010, "Ermin","ErminMaker", 2022);
+    Car car2 = new Car(28400, "ChrisCross","God", 1000);
 
     Booking booking1 = new Booking(8000, 10,car1,washAss1);
+    Booking booking2 = new Booking(14000, 300,car1,washAss2);
 
     if(admin.getUserPass().equals("test")||user.getUserPass().equals("test")||both.getUserPass().equals("test"))
       throw new UnsupportedOperationException("You have not changed the passwords");
@@ -48,7 +50,9 @@ public class SetupTestUsers {
     em.persist(washAss1);
     em.persist(washAss2);
     em.persist(car1);
+    em.persist(car2);
     em.persist(booking1);
+    em.persist(booking2);
     em.getTransaction().commit();
     System.out.println("PW: " + user.getUserPass());
     System.out.println("Testing user with OK password: " + user.verifyPassword("test"));

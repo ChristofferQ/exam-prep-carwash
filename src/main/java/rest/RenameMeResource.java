@@ -85,4 +85,11 @@ public class RenameMeResource {
         WashingAssistantDTO wad = FACADE.createWashingAssistant(wa);
         return Response.ok(wad).build();
     }
+
+    @Path("booking/{id}")
+    @DELETE
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response deleteBooking(@PathParam("id") long id) {
+        return Response.ok(GSON.toJson(FACADE.deleteBooking(id))).build();
+    }
 }
