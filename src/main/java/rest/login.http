@@ -50,9 +50,19 @@ POST http://localhost:8080/devops_starter_war_exploded/api/xxx/createwashingass
 PUT http://localhost:8080/devops_starter_war_exploded/api/xxx/editbooking/1
 
 {
-"DateAndTime": 41546,
-"Duration": 4555,
-"CarId": 2
+"DateAndTime":41546,
+"Duration":4555,
+"CarId":2
+}
+
+###
+PUT http://localhost:8080/devops_starter_war_exploded/api/xxx/editcar/2
+
+{
+"RegNumber":216,
+"Year":1378,
+"Brand":"aa",
+"Make":"bb"
 }
 
 ###

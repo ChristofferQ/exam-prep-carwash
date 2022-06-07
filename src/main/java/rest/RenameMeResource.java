@@ -3,6 +3,7 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.BookingDTO;
+import dtos.CarDTO;
 import dtos.WashingAssistantDTO;
 import utils.EMF_Creator;
 import facades.FacadeExample;
@@ -97,6 +98,19 @@ public class RenameMeResource {
         b.setId(id);
         BookingDTO bEdited = FACADE.editBooking(b);
         return Response.ok(bEdited).build();
+    }
+
+    //RolesAllowed not added for easier testing
+    @Path("editcar/{id}")
+    //@RolesAllowed("admin")
+    @PUT
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response editCar(@PathParam("id") long id, String car) {
+        CarDTO c = GSON.fromJson(car, CarDTO.class);
+        c.setId(id);
+        CarDTO cEdited = FACADE.editCar(c);
+        return Response.ok(cEdited).build();
     }
 
     @Path("deletebooking/{id}")

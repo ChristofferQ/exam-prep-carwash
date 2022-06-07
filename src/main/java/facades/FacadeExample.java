@@ -52,6 +52,12 @@ public class FacadeExample {
         return new BookingDTO(b);
     }
 
+    public CarDTO getCarById(long carId) {
+        EntityManager em = emf.createEntityManager();
+        Car c = em.find(Car.class, carId);
+        return new CarDTO(c);
+    }
+
     public long getCarCount() {
         EntityManager em = getEntityManager();
         try{
@@ -143,6 +149,27 @@ public class FacadeExample {
             em.close();
         }
     }
+
+    public CarDTO editCar(CarDTO carDTO) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            Car c = em.find(Car.class, carDTO.getId());
+
+            c.setBrand(carDTO.getBrand());
+            c.setMake(carDTO.getMake());
+            c.setRegNumber(carDTO.getRegNumber());
+            c.setYear(carDTO.getYear());
+
+            em.getTransaction().begin();
+            em.merge(c);
+            em.getTransaction().commit();
+            return new CarDTO(c);
+
+        }finally {
+            em.close();
+        }
+    }
+
     public Response deleteBooking(long id) {
         EntityManager em= emf.createEntityManager();
         try {
@@ -166,18 +193,26 @@ public class FacadeExample {
         //BookingDTO bd = new BookingDTO(121,121,new Car(),new WashingAssistant());
         //fe.createBooking(bd);
 
-        fe.deleteBooking(1);
+        //fe.deleteBooking(1);
 
         //fe.assignWashAss(1,2);
 
         //WashingAssistantDTO wad = new WashingAssistantDTO("Ermin","Dansk",12,12);
         //fe.createWashingAssistant(wad);
 
-//        BookingDTO bd = fe.getBookingById(2);
-//        bd.setDateAndTime(1234);
-//        bd.setDuration(51231);
-//        bd.setCarId(1);
-//        fe.editBooking(bd);
-//        System.out.println("Testing editBoat" + "\n" + bd);
+        BookingDTO bd = fe.getBookingById(2);
+        bd.setDateAndTime(1234);
+        bd.setDuration(51231);
+        bd.setCarId(2);
+        fe.editBooking(bd);
+        System.out.println("Testing editBoat" + "\n" + bd);
+
+//        CarDTO cc = fe.getCarById(1);
+//        cc.setBrand("hej");
+//        cc.setMake("igen");
+//        cc.setYear(123);
+//        cc.setRegNumber(231);
+//        fe.editCar(cc);
+//        System.out.println("Testing editBoat" + "\n" + cc);
     }
 }
