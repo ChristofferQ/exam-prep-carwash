@@ -138,6 +138,11 @@ public class FacadeExample {
             em.merge(b);
             em.getTransaction().commit();
             return new BookingDTO(b);
+
+        }finally {
+            em.close();
+        }
+    }
     public Response deleteBooking(long id) {
         EntityManager em= emf.createEntityManager();
         try {

@@ -54,6 +54,8 @@ PUT http://localhost:8080/devops_starter_war_exploded/api/xxx/editbooking/1
 "Duration": 4555,
 "CarId": 2
 }
+
+###
 DELETE http://localhost:8080/devops_starter_war_exploded/api/xxx/booking/2
 
 
