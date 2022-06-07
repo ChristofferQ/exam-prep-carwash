@@ -97,5 +97,10 @@ public class RenameMeResource {
         b.setId(id);
         BookingDTO bEdited = FACADE.editBooking(b);
         return Response.ok(bEdited).build();
+    @Path("deletebooking/{id}")
+    @DELETE
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response deleteBooking(@PathParam("id") long id) {
+        return Response.ok(GSON.toJson(FACADE.deleteBooking(id))).build();
     }
 }

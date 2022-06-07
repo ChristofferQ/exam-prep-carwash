@@ -3,7 +3,9 @@ package facades;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.core.Response;
 
 //import errorhandling.RenameMeNotFoundException;
 import dtos.BookingDTO;
@@ -136,6 +138,14 @@ public class FacadeExample {
             em.merge(b);
             em.getTransaction().commit();
             return new BookingDTO(b);
+    public Response deleteBooking(long id) {
+        EntityManager em= emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Query q = em.createQuery("DELETE FROM Booking b WHERE b.id = :id").setParameter("id", id);
+            q.executeUpdate();
+            em.getTransaction().commit();
+            return Response.ok().build();
         } finally {
             em.close();
         }
@@ -150,6 +160,8 @@ public class FacadeExample {
 
         //BookingDTO bd = new BookingDTO(121,121,new Car(),new WashingAssistant());
         //fe.createBooking(bd);
+
+        fe.deleteBooking(1);
 
         //fe.assignWashAss(1,2);
 
