@@ -86,7 +86,7 @@ public class RenameMeResource {
         return Response.ok(wad).build();
     }
 
-    @Path("booking/{id}")
+    @Path("deletebooking/{id}")
     @DELETE
     @Produces({MediaType.APPLICATION_JSON})
     public Response deleteBooking(@PathParam("id") long id) {
