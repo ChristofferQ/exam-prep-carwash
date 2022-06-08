@@ -1,6 +1,7 @@
 package facades;
 
 import dtos.BookingDTO;
+import dtos.CarDTO;
 import entities.Booking;
 import entities.Car;
 import entities.WashingAssistant;
@@ -18,6 +19,8 @@ public class FacadeExampleTest {
 
     private static EntityManagerFactory emf;
     private static FacadeExample facade;
+
+    private static Car c1, c2;
 
     public FacadeExampleTest() {
     }
@@ -42,19 +45,19 @@ public class FacadeExampleTest {
         WashingAssistant washAss1 = new WashingAssistant("Steve", "English", 3,145);
         WashingAssistant washAss2 = new WashingAssistant("Bobbie", "American", 15,230);
 
-        Car car1 = new Car(101010, "Ermin","ErminMaker", 2022);
-        Car car2 = new Car(28400, "ChrisCross","God", 1000);
+        c1 = new Car(101010, "Ermin","ErminMaker", 2022);
+        c2 = new Car(28400, "ChrisCross","God", 1000);
 
-        Booking booking1 = new Booking(8000, 10,car1,washAss1);
-        Booking booking2 = new Booking(14000, 300,car2,washAss2);
+        Booking booking1 = new Booking(8000, 10,c1,washAss1);
+        Booking booking2 = new Booking(14000, 300,c2,washAss2);
         try {
             em.getTransaction().begin();
 
             em.persist(washAss1);
             em.persist(washAss2);
 
-            em.persist(car1);
-            em.persist(car2);
+            em.persist(c1);
+            em.persist(c2);
 
             em.persist(booking1);
             em.persist(booking2);
@@ -93,6 +96,21 @@ public class FacadeExampleTest {
     @Test
     public void testDeleteBooking() {
 
+    }
+
+    @Test
+    public void testEditCar() throws Exception {
+        System.out.println("editCar");
+        CarDTO c = new CarDTO(c1);
+        EntityManagerFactory _emf = null;
+        FacadeExample instance = FacadeExample.getFacadeExample(_emf);
+        CarDTO expResult = new CarDTO(c1);
+        expResult.setBrand("Brando");
+        c.setBrand("Brando");
+        instance.editCar(c);
+        CarDTO result;
+        result = instance.getCarById(c1.getId());
+        assertEquals(expResult.getBrand(), result.getBrand());
     }
 
 }

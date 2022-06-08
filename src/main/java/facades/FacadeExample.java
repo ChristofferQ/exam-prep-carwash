@@ -150,7 +150,34 @@ public class FacadeExample {
         }
     }
 
+
+    public CarDTO editCar(CarDTO c) throws exceptions.CarNotFoundException {
+        EntityManager em = emf.createEntityManager();
+        try {
+            Car car = em.find(Car.class, c.getId());
+            if (car == null) {
+                throw new exceptions.CarNotFoundException(String.format("Car with id: (%d) not found", c.getId()));
+            } else {
+                car.setBrand(c.getBrand());
+                car.setMake(c.getMake());
+                car.setRegNumber(c.getRegNumber());
+                car.setYear(c.getYear());
+
+                em.getTransaction().begin();
+                em.merge(car);
+                em.getTransaction().commit();
+            }
+            return new CarDTO(car);
+        } finally {
+            em.close();
+        }
+    }
+
+
+
+    /*
     public CarDTO editCar(CarDTO carDTO) {
+
         EntityManager em = emf.createEntityManager();
         try {
             Car c = em.find(Car.class, carDTO.getId());
@@ -169,6 +196,7 @@ public class FacadeExample {
             em.close();
         }
     }
+     */
 
     public Response deleteBooking(long id) {
         EntityManager em= emf.createEntityManager();
@@ -184,7 +212,7 @@ public class FacadeExample {
     }
 
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws exceptions.CarNotFoundException {
         emf = EMF_Creator.createEntityManagerFactory();
         FacadeExample fe = getFacadeExample(emf);
         //fe.getAllWashingAssistants();
@@ -200,19 +228,19 @@ public class FacadeExample {
         //WashingAssistantDTO wad = new WashingAssistantDTO("Ermin","Dansk",12,12);
         //fe.createWashingAssistant(wad);
 
-        BookingDTO bd = fe.getBookingById(2);
-        bd.setDateAndTime(1234);
-        bd.setDuration(51231);
-        bd.setCarId(2);
-        fe.editBooking(bd);
-        System.out.println("Testing editBoat" + "\n" + bd);
+//        BookingDTO bd = fe.getBookingById(2);
+//        bd.setDateAndTime(1234);
+//        bd.setDuration(51231);
+//        bd.setCarId(2);
+//        fe.editBooking(bd);
+//        System.out.println("Testing editBoat" + "\n" + bd);
 
-//        CarDTO cc = fe.getCarById(1);
-//        cc.setBrand("hej");
-//        cc.setMake("igen");
-//        cc.setYear(123);
-//        cc.setRegNumber(231);
-//        fe.editCar(cc);
-//        System.out.println("Testing editBoat" + "\n" + cc);
+        CarDTO cc = fe.getCarById(2);
+        cc.setBrand("hej");
+        cc.setMake("igen");
+        cc.setYear(123);
+        cc.setRegNumber(231);
+        fe.editCar(cc);
+        System.out.println("Testing editBoat" + "\n" + cc);
     }
 }

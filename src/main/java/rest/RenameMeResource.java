@@ -106,7 +106,7 @@ public class RenameMeResource {
     @PUT
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
-    public Response editCar(@PathParam("id") long id, String car) {
+    public Response editCar(@PathParam("id") long id, String car) throws exceptions.CarNotFoundException {
         CarDTO c = GSON.fromJson(car, CarDTO.class);
         c.setId(id);
         CarDTO cEdited = FACADE.editCar(c);
